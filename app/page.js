@@ -19,53 +19,51 @@ async function getPosts() {
       next: { revalidate },
       headers: { "User-Agent": "Mozilla/5.0 (compatible; RSSReader/1.0)" },
     });
-    if (!res.ok) return { posts: [], error: `RSS ìëµ ì¤ë¥ (status ${res.status})` };
+    if (!res.ok) return [];
     const xml = await res.text();
     const parser = new XMLParser({ ignoreAttributes: false });
     const data = parser.parse(xml);
     let items = data?.rss?.channel?.item ?? [];
     if (!Array.isArray(items)) items = [items];
-    const posts = items.map((item) => {
+    return items.map((item) => {
       const link = item.link ?? "#";
       const slug = getPostSlug(link);
       return {
-        title: typeof item.title === "string" ? item.title : item.title?.["#text"] ?? "(ì ëª© ìì)",
+        title: typeof item.title === "string" ? item.title : item.title?.["#text"] ?? "(제목 없음)",
         link,
         slug,
-        description: stripHtml(typeof item.description === "string" ? item.description : item.description?.["#text"] ?? "").slice(0, 160),
+        content: typeof item.description === "string" ? item.description : item.description?.["#text"] ?? "",
         pubDate: item.pubDate ?? "",
       };
     });
-    return { posts, error: null };
   } catch (e) {
-    return { posts: [], error: String(e) };
+    return [];
   }
 }
 
 export default async function Home() {
-  const { posts, error } = await getPosts();
+  const posts = await getPosts();
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
-      <header style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 28, marginBottom: 8 }}>{NAVER_BLOG_ID} ë¤ì´ë² ë¸ë¡ê·¸ ê¸ ëª¨ì</h1>
-        <p style={{ color: "#666", lineHeight: 1.6 }}>
-          ë¤ì´ë² ë¸ë¡ê·¸{" "}
-          <a href={`https://m.blog.naver.com/${NAVER_BLOG_ID}`} target="_blank" rel="noopener noreferrer">
-            m.blog.naver.com/{NAVER_BLOG_ID}
-          </a>{" "}
-          ì ìµì  ê¸ ëª©ë¡ìëë¤. (RSS ê¸°ë°, 60ë¶ë§ë¤ ìë ê°±ì )
-        </p>
-      </header>
-      {error && <p style={{ color: "#c00" }}>ê¸ ëª©ë¡ì ë¶ë¬ì¤ë ì¤ ì¤ë¥ê° ë°ìíìµëë¤: {error}</p>}
-      {!error && posts.length === 0 && <p style={{ color: "#666" }}>íìí  ê¸ì´ ììµëë¤.</p>}
+      <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 32 }}>블로그 포스트 목록</h1>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {posts.map((post) => (
-          <li key={post.link} style={{ background: "#fff", border: "1px solid #e5e5e8", borderRadius: 12, padding: "18px 20px", marginBottom: 14 }}>
-            <a href={post.slug ? `/posts/${post.slug}` : post.link} style={{ fontSize: 18, fontWeight: 600, color: "#1a1a1a", textDecoration: "none" }}>
+        {posts.map((post, i) => (
+          <li key={i} style={{ marginBottom: 28, paddingBottom: 28, borderBottom: "1px solid #eee" }}>
+            <a
+              href={post.slug ? `/posts/${post.slug}` : post.link}
+              {...(post.slug ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+              style={{ color: "#03c75a", textDecoration: "none", fontSize: 17, fontWeight: 600 }}
+            >
               {post.title}
             </a>
-            {post.description && <p style={{ margin: "8px 0 0", color: "#555", fontSize: 14, lineHeight: 1.6 }}>{post.description}</p>}
-            {post.pubDate && <time style={{ display: "block", marginTop: 8, fontSize: 12, color: "#999" }}>{post.pubDate}</time>}
+            {post.pubDate && (
+              <p style={{ margin: "6px 0 0", fontSize: 13, color: "#999" }}>{post.pubDate}</p>
+            )}
+            {post.content && (
+              <p style={{ margin: "8px 0 0", fontSize: 14, color: "#555", lineHeight: 1.6 }}>
+                {stripHtml(post.content).slice(0, 120)}{stripHtml(post.content).length > 120 ? "…" : ""}
+              </p>
+            )}
           </li>
         ))}
       </ul>
