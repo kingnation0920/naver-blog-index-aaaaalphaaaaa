@@ -26,7 +26,7 @@ async function getAllPosts() {
       const match = link.match(/\/(\d+)(?:\?|$)/);
       const slug = match ? match[1] : null;
       return {
-        title: typeof item.title === "string" ? item.title : item.title?.["#text"] ?? "(ì ëª© ìì)",
+        title: typeof item.title === "string" ? item.title : item.title?.["#text"] ?? "(제목 없음)",
         link,
         slug,
         content: typeof item.description === "string" ? item.description : item.description?.["#text"] ?? "",
@@ -46,7 +46,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const posts = await getAllPosts();
   const post = posts.find((p) => p.slug === params.slug);
-  if (!post) return { title: "ê¸ì ì°¾ì ì ììµëë¤" };
+  if (!post) return { title: "글을 찾을 수 없습니다" };
   return {
     title: post.title,
     description: stripHtml(post.content).slice(0, 160),
@@ -62,7 +62,7 @@ export default async function PostPage({ params }) {
     <main style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
       <nav style={{ marginBottom: 24 }}>
         <a href="/" style={{ color: "#666", textDecoration: "none", fontSize: 14 }}>
-          â ëª©ë¡ì¼ë¡
+          ← 목록으로
         </a>
       </nav>
       <article>
@@ -81,7 +81,7 @@ export default async function PostPage({ params }) {
             rel="noopener noreferrer"
             style={{ color: "#03c75a", textDecoration: "none", fontSize: 14 }}
           >
-            ë¤ì´ë² ë¸ë¡ê·¸ ìë¬¸ ë³´ê¸° â
+            네이버 블로그 원문 보기 →
           </a>
         </div>
       </article>
