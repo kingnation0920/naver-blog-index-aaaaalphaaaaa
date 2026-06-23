@@ -2,7 +2,7 @@ import { XMLParser } from "fast-xml-parser";
 
 const NAVER_BLOG_ID = "aaaaalphaaaaa";
 const RSS_URL = `https://rss.blog.naver.com/${NAVER_BLOG_ID}.xml`;
-const BASE_URL = `https://naver-blog-index-${NAVER_BLOG_ID}.vercel.app`;
+const BASE_URL = "https://aiproductplanner.kr";
 
 async function getPostSlugs() {
   try {

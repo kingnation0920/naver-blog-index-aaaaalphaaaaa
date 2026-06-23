@@ -2,7 +2,10 @@ export const metadata = {
   title: "aaaaalphaaaaa 네이버 블로그 글 모음",
   description: "aaaaalphaaaaa 네이버 블로그 최신 글 목록을 자동으로 보여줍니다.",
   verification: {
-    google: "DygTh4U9GSwzJ_41exp75QLL3boNvWGo7h80IOdVkY0",
+    google: [
+      "DygTh4U9GSwzJ_41exp75QLL3boNvWGo7h80IOdVkY0",
+      "RfKH7tYbBbOdyPSJOdtQ6lOWT4A20B2scdMElFbFIcc",
+    ],
   },
 };
 
