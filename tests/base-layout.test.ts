@@ -18,6 +18,6 @@ describe('BaseLayout', () => {
 
     expect(html).toContain('<html lang="ko">');
     expect(html).toContain('<meta name="description" content="테스트 설명">');
-    expect(html).toContain('<link rel="canonical" href="https://www.example.invalid/articles/test">');
+    expect(html).toContain('<link rel="canonical" href="https://aiproductplanner.kr/articles/test">');
   });
 });

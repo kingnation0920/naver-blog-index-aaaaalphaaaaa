@@ -1,0 +1,59 @@
+<section class="consultation-cta" aria-labelledby="consultation-title">
+  <div>
+    <span class="eyebrow">Counseling</span>
+    <h2 id="consultation-title">더 읽는 것만으로 정리되지 않을 때</h2>
+  </div>
+  <div class="consultation-copy">
+    <p>혼자 정리하기 어려운 마음이라면, 현재 상황과 다음 선택을 함께 천천히 살펴볼 수 있습니다.</p>
+    <a class="button button--primary" href="/counseling">상담 안내 보기</a>
+  </div>
+</section>
+
+<style>
+  .consultation-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    gap: clamp(32px, 7vw, 96px);
+    padding: clamp(38px, 7vw, 76px);
+    color: #f2f4f1;
+    background: var(--dark, #18241e);
+  }
+
+  h2 {
+    max-width: 13ch;
+    margin: 16px 0 0;
+    color: inherit;
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    line-height: 1.08;
+  }
+
+  .consultation-copy {
+    align-self: end;
+  }
+
+  p {
+    margin: 0 0 28px;
+    color: #c5d0c8;
+    line-height: 1.8;
+  }
+
+  .eyebrow {
+    color: #d9a188;
+  }
+
+  .button {
+    color: var(--dark, #18241e);
+    background: #f4eee3;
+  }
+
+  .button:focus-visible {
+    outline: 3px solid #d9a188;
+    outline-offset: 5px;
+  }
+
+  @media (max-width: 720px) {
+    .consultation-cta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

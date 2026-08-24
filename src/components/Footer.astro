@@ -1,0 +1,78 @@
+---
+import { site } from '@/data/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <strong>{site.name}</strong>
+      <span>{site.conceptName}</span>
+    </div>
+    <div>
+      <p class="operator">{site.operator}</p>
+      <p class="notice">{site.notice}</p>
+    </div>
+    <a href="/counseling">상담 안내 <span aria-hidden="true">↗</span></a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: clamp(56px, 9vw, 96px);
+    color: #edf1ed;
+    background: var(--dark, #18241e);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 1.5fr) auto;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 6px;
+  }
+
+  .footer-brand strong {
+    font-family: var(--font-serif, serif);
+    font-size: 1.25rem;
+  }
+
+  .footer-brand span,
+  .operator {
+    color: #aebbb2;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .operator {
+    margin-top: 0;
+  }
+
+  .notice {
+    max-width: 62ch;
+    color: #c6d0c9;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  a {
+    color: white;
+    text-underline-offset: 6px;
+  }
+
+  a:focus-visible {
+    outline: 3px solid #dca184;
+    outline-offset: 5px;
+  }
+
+  @media (max-width: 760px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+</style>

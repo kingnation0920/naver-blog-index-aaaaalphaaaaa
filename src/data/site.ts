@@ -2,7 +2,7 @@ export const site = {
   name: '마음의 장면들',
   conceptName: '감정 아카이브',
   description: '일, 관계, 가족 안에서 반복되는 마음의 장면을 이해하기 쉽게 기록합니다.',
-  url: import.meta.env.PUBLIC_SITE_URL ?? 'https://www.example.invalid',
+  url: import.meta.env.PUBLIC_SITE_URL ?? 'https://aiproductplanner.kr',
   operator: '독립 심리 콘텐츠 브랜드',
   phone: '',
   kakaoUrl: '',

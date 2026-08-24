@@ -1,0 +1,111 @@
+---
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import { site } from '@/data/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const channels: { label: string; href: string }[] = [
+  { label: '카카오톡 상담', href: String(site.kakaoUrl) },
+  { label: '상담 예약', href: String(site.bookingUrl) },
+  { label: '상담 공간 위치', href: String(site.mapUrl) }
+].filter((channel) => channel.href.length > 0);
+---
+
+<BaseLayout
+  title="상담 안내"
+  description="읽기만으로 정리되지 않는 마음을 함께 살펴보는 상담 안내입니다."
+  pathname="/counseling"
+>
+  <Header />
+  <main id="main-content" class="counseling-page container">
+    <header>
+      <p class="eyebrow">Counseling</p>
+      <h1>상담 안내</h1>
+      <p>혼자 정리하기 어려운 문제라면 현재 상황과 다음 선택을 함께 살펴볼 수 있습니다.</p>
+    </header>
+
+    <section>
+      <p class="section-number">01</p>
+      <div>
+        <h2>이런 순간에 도움이 될 수 있습니다</h2>
+        <ul>
+          <li>일의 긴장이 일상과 수면까지 이어질 때</li>
+          <li>관계 갈등이 같은 방식으로 반복될 때</li>
+          <li>가족 안에서 감정과 역할의 부담이 커질 때</li>
+          <li>감정을 설명하기 어렵고 혼자 감당하는 시간이 길어질 때</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-number">02</p>
+      <div>
+        <h2>진행 방식</h2>
+        <ol>
+          <li><strong>상황 남기기</strong><span>현재 고민과 가능한 시간을 간단히 전합니다.</span></li>
+          <li><strong>절차 확인</strong><span>운영자가 상담 방식과 일정을 안내합니다.</span></li>
+          <li><strong>함께 살펴보기</strong><span>반복되는 장면을 정리하고 다음 선택을 찾습니다.</span></li>
+        </ol>
+        {channels.length > 0 ? (
+          <div class="channels">
+            {channels.map((channel) => (
+              <a class="button button--primary" href={channel.href} target="_blank" rel="noreferrer">
+                {channel.label}
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="channel-fallback">연락 채널을 준비하고 있습니다.</p>
+        )}
+      </div>
+    </section>
+
+    <section>
+      <p class="section-number">03</p>
+      <div>
+        <h2>운영 안내</h2>
+        <p><strong>{site.operator}</strong></p>
+        {site.phone && <p>{site.phone}</p>}
+        <p>{site.notice}</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .counseling-page > header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+    gap: 24px 64px;
+    align-items: end;
+    padding-block: clamp(76px, 12vw, 150px);
+  }
+
+  header .eyebrow { grid-column: 1 / -1; }
+  h1 { margin: 0; font-size: clamp(3.6rem, 10vw, 8rem); }
+  header > p:last-child { max-width: 50ch; margin: 0; color: var(--muted); font-size: 1.1rem; }
+
+  .counseling-page > section {
+    display: grid;
+    grid-template-columns: minmax(80px, .35fr) minmax(0, 1.65fr);
+    gap: clamp(28px, 7vw, 100px);
+    padding-block: clamp(54px, 8vw, 96px);
+    border-top: 1px solid var(--line);
+  }
+
+  .section-number { color: var(--accent); font-size: .78rem; letter-spacing: .1em; }
+  section h2 { max-width: 17ch; margin-bottom: 34px; font-size: clamp(2rem, 4vw, 3.7rem); }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  li { padding-block: 20px; border-top: 1px solid var(--line); }
+  li:last-child { border-bottom: 1px solid var(--line); }
+  ol li { display: grid; grid-template-columns: minmax(130px, .45fr) minmax(0, 1fr); gap: 24px; }
+  ol span, section div > p { color: var(--muted); }
+  .channels { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .channel-fallback { margin-top: 34px; padding: 22px; border: 1px solid var(--line); background: var(--surface); }
+
+  @media (max-width: 700px) {
+    .counseling-page > header, .counseling-page > section { grid-template-columns: 1fr; }
+    ol li { grid-template-columns: 1fr; gap: 7px; }
+  }
+</style>

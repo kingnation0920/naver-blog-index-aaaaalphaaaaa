@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleList from '@/components/ArticleList.astro';
+import ConsultationCTA from '@/components/ConsultationCTA.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { categoryMeta, sortNewestFirst, type Category } from '@/lib/content';
+
+export function getStaticPaths() {
+  return (Object.keys(categoryMeta) as Category[]).map((category) => ({
+    params: { category },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props as { category: Category };
+const meta = categoryMeta[category];
+const articles = sortNewestFirst(
+  (await getCollection('articles')).filter((article) => article.data.category === category)
+);
+---
+
+<BaseLayout
+  title={meta.label}
+  description={`${meta.label}에 반복되는 마음의 장면을 읽습니다.`}
+  pathname={meta.route}
+>
+  <Header />
+  <main id="main-content" class="topic-page container">
+    <header>
+      <p class="eyebrow">Topic archive</p>
+      <h1>{meta.label}</h1>
+      <p>{meta.label}에 반복되는 마음의 장면을 천천히 읽고, 지금의 감정에 맞는 언어를 찾아봅니다.</p>
+    </header>
+
+    <section aria-label={`${meta.label} 글 목록`}>
+      {articles.length > 0 ? <ArticleList articles={articles} /> : <p class="empty">아직 준비된 글이 없습니다.</p>}
+    </section>
+
+    <ConsultationCTA />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .topic-page > header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+    gap: 24px 64px;
+    align-items: end;
+    padding-block: clamp(76px, 12vw, 150px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  header .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(4rem, 12vw, 9rem);
+  }
+
+  header > p:last-child {
+    max-width: 52ch;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .topic-page > section {
+    padding-block: clamp(50px, 8vw, 96px);
+  }
+
+  .empty {
+    padding: 48px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .topic-page > :global(.consultation-cta) {
+    margin-bottom: var(--section-space);
+  }
+
+  @media (max-width: 700px) {
+    .topic-page > header {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

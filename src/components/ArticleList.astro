@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryMeta } from '@/lib/content';
+
+interface Props {
+  articles: readonly CollectionEntry<'articles'>[];
+}
+
+const { articles } = Astro.props;
+---
+
+<div class="article-list">
+  {articles.map((article) => (
+    <article>
+      <span class="article-category">{categoryMeta[article.data.category].label}</span>
+      <div class="article-copy">
+        <h3><a href={`/articles/${article.id}`}>{article.data.title}</a></h3>
+        <p>{article.data.summary}</p>
+      </div>
+      <small>{article.data.readingTime}</small>
+    </article>
+  ))}
+</div>
+
+<style>
+  .article-list {
+    border-bottom: 1px solid var(--line, #d9d5cc);
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr) auto;
+    gap: clamp(20px, 4vw, 56px);
+    align-items: start;
+    padding-block: clamp(26px, 4vw, 42px);
+    border-top: 1px solid var(--line, #d9d5cc);
+  }
+
+  .article-category,
+  small {
+    color: var(--muted, #677169);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    font-size: clamp(1.28rem, 2.6vw, 2rem);
+    line-height: 1.25;
+  }
+
+  h3 a {
+    color: var(--ink, #18241e);
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  h3 a:focus-visible {
+    outline: 3px solid var(--accent, #c86f4a);
+    outline-offset: 5px;
+  }
+
+  p {
+    max-width: 62ch;
+    margin-top: 12px;
+    color: var(--muted, #677169);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 680px) {
+    article {
+      grid-template-columns: 1fr;
+      gap: 9px;
+    }
+
+    small {
+      margin-top: 4px;
+    }
+  }
+</style>

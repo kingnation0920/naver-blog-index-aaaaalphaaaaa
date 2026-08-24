@@ -1,0 +1,154 @@
+---
+import { site } from '@/data/site';
+import { categoryMeta } from '@/lib/content';
+
+const links = Object.values(categoryMeta);
+---
+
+<a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label={`${site.name} 홈`}>
+      <strong>{site.name}</strong>
+      <span>{site.conceptName}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="주요 메뉴">
+      {links.map((link) => <a href={link.route}>{link.label}</a>)}
+      <a class="consultation-link" href="/counseling">상담 안내</a>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary>메뉴</summary>
+      <nav aria-label="모바일 주요 메뉴">
+        {links.map((link) => <a href={link.route}>{link.label}</a>)}
+        <a href="/counseling">상담 안내</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+    padding: 10px 14px;
+    color: white;
+    background: var(--ink, #18241e);
+    transform: translateY(-160%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid var(--accent, #c86f4a);
+    outline-offset: 3px;
+  }
+
+  .site-header {
+    position: relative;
+    z-index: 20;
+    border-bottom: 1px solid var(--line, #d9d5cc);
+    background: color-mix(in srgb, var(--background, #f6f1e8) 94%, transparent);
+  }
+
+  .site-header__inner {
+    display: flex;
+    min-height: 76px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .brand {
+    display: grid;
+    gap: 2px;
+    color: var(--ink, #18241e);
+    text-decoration: none;
+  }
+
+  .brand strong {
+    font-family: var(--font-serif, serif);
+    font-size: 1.13rem;
+  }
+
+  .brand span {
+    color: var(--muted, #677169);
+    font-size: 0.7rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 28px);
+    font-size: 0.91rem;
+  }
+
+  nav a {
+    color: var(--ink, #18241e);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+
+  nav a:hover {
+    text-decoration-line: underline;
+  }
+
+  nav a:focus-visible,
+  summary:focus-visible,
+  .brand:focus-visible {
+    outline: 3px solid var(--accent, #c86f4a);
+    outline-offset: 4px;
+  }
+
+  .consultation-link {
+    padding-left: 20px;
+    border-left: 1px solid var(--line, #d9d5cc);
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  summary {
+    min-height: 44px;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 650;
+  }
+
+  @media (max-width: 820px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-nav {
+      position: relative;
+      display: block;
+    }
+
+    .mobile-nav nav {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      display: grid;
+      width: min(76vw, 280px);
+      padding: 14px;
+      border: 1px solid var(--line, #d9d5cc);
+      background: var(--surface, #fffdf8);
+      box-shadow: 0 18px 45px rgb(24 36 30 / 12%);
+    }
+
+    .mobile-nav nav a {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line, #d9d5cc);
+    }
+
+    .mobile-nav nav a:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>
