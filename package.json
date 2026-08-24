@@ -7,7 +7,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "test": "vitest run",
-    "test:e2e": "playwright test",
+    "test:e2e": "astro preview --host 127.0.0.1 --port 4322 && playwright test",
     "verify": "npm run test && npm run build && npm run test:e2e"
   },
   "dependencies": {
