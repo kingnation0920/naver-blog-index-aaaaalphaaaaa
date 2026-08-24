@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">마음의 장면들</title>
+  <desc id="desc">감정 아카이브, 일과 관계와 가족 안의 마음을 기록하는 심리 콘텐츠</desc>
+  <rect width="1200" height="630" fill="#f4f0e6"/>
+  <path d="M96 120H1104M96 510H1104" stroke="#d9d1c1" stroke-width="2"/>
+  <text x="96" y="181" fill="#ad5d46" font-family="Inter, Pretendard, Noto Sans KR, sans-serif" font-size="24" font-weight="600" letter-spacing="4">PSYCHOLOGY ARCHIVE</text>
+  <text x="96" y="340" fill="#173629" font-family="Inter, Pretendard, Noto Sans KR, sans-serif" font-size="96" font-weight="600" letter-spacing="-5">마음의 장면들</text>
+  <text x="96" y="408" fill="#39443d" font-family="Inter, Pretendard, Noto Sans KR, sans-serif" font-size="30">일, 관계, 가족 안에서 반복되는 마음의 장면을 기록합니다.</text>
+  <circle cx="1080" cy="315" r="26" fill="#ad5d46"/>
+</svg>

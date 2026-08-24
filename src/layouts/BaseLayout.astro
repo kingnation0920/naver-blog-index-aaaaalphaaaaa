@@ -1,0 +1,36 @@
+---
+import { site } from '@/data/site';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, pathname, image = '/og-default.svg', jsonLd } = Astro.props;
+const canonical = new URL(pathname, site.url).href;
+const pageTitle = title === site.name ? site.name : `${title} | ${site.name}`;
+const socialImage = new URL(image, site.url).href;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
