@@ -12,7 +12,12 @@ import { site } from '@/data/site';
       <p class="operator">{site.operator}</p>
       <p class="notice">{site.notice}</p>
     </div>
-    <a href="/counseling">상담 안내 <span aria-hidden="true">↗</span></a>
+    <div class="contact-links" aria-label="연락 채널">
+      <a href={`tel:${site.phone.replaceAll('-', '')}`}>{site.phone}</a>
+      <a href={site.kakaoUrl} target="_blank" rel="noreferrer">카카오톡 상담 ↗</a>
+      <a href={site.bookingUrl} target="_blank" rel="noreferrer">상담 예약 ↗</a>
+      <a href={site.mapUrl} target="_blank" rel="noreferrer">오시는 길 ↗</a>
+    </div>
   </div>
 </footer>
 
@@ -62,6 +67,13 @@ import { site } from '@/data/site';
   a {
     color: white;
     text-underline-offset: 6px;
+  }
+
+  .contact-links {
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+    white-space: nowrap;
   }
 
   a:focus-visible {

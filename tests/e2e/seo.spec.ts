@@ -3,7 +3,9 @@ import { expect, test } from '@playwright/test';
 test('counseling falls back to on-page contact guidance', async ({ page }) => {
   await page.goto('/counseling');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('상담 안내');
-  await expect(page.getByText('연락 채널을 준비하고 있습니다.')).toBeVisible();
+  await expect(page.getByRole('link', { name: '카카오톡 상담' })).toBeVisible();
+  await expect(page.getByRole('link', { name: '상담 예약' })).toBeVisible();
+  await expect(page.getByRole('link', { name: '상담 공간 위치' })).toBeVisible();
 });
 
 test('core pages expose production canonical metadata', async ({ page }) => {
