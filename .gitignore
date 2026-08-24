@@ -6,3 +6,6 @@ playwright-report/
 test-results/
 .superpowers/
 .codex-fable5/
+
+.vercel
+.env*
