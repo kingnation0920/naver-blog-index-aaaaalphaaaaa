@@ -12,7 +12,7 @@ describe('category metadata', () => {
       route: '/topics/relationships'
     });
     expect(categoryMeta.family).toEqual({ label: '가족', route: '/topics/family' });
-    expect(categoryMeta.notes).toEqual({ label: '노트', route: '/topics/notes' });
+    expect(categoryMeta.notes).toEqual({ label: '마음 기록', route: '/topics/notes' });
   });
 });
 

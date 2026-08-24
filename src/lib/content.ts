@@ -2,7 +2,7 @@ export const categoryMeta = {
   work: { label: '일', route: '/topics/work' },
   relationships: { label: '관계', route: '/topics/relationships' },
   family: { label: '가족', route: '/topics/family' },
-  notes: { label: '노트', route: '/topics/notes' }
+  notes: { label: '마음 기록', route: '/topics/notes' }
 } as const;
 
 export type Category = keyof typeof categoryMeta;
