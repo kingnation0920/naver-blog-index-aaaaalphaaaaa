@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "siteId": "aiproductplanner",
+  "domain": "https://aiproductplanner.kr",
+  "vercelProjectId": "prj_pJORCijpRoyWvQEINWJ78Vj6jcI0",
+  "productionBranch": "codex/emotion-archive",
+  "adapter": "astro-content"
+}
