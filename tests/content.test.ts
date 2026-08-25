@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readdirSync } from 'node:fs';
 import { categoryMeta, sortNewestFirst } from '@/lib/content';
 
 describe('category metadata', () => {
@@ -24,5 +25,11 @@ describe('sortNewestFirst', () => {
 
     expect(sortNewestFirst(entries)).toEqual([newer, older]);
     expect(entries).toEqual([older, newer]);
+  });
+});
+
+describe('published content inventory', () => {
+  it('contains only the real uploaded article', () => {
+    expect(readdirSync('src/content/articles').sort()).toEqual(['mood-inner-signal.md']);
   });
 });
