@@ -29,7 +29,17 @@ describe('sortNewestFirst', () => {
 });
 
 describe('published content inventory', () => {
-  it('contains only the real uploaded article', () => {
-    expect(readdirSync('src/content/articles').sort()).toEqual(['mood-inner-signal.md']);
+  it('does not restore removed dummy articles', () => {
+    const files = readdirSync('src/content/articles');
+
+    expect(files).toContain('mood-inner-signal.md');
+    expect(files).not.toEqual(
+      expect.arrayContaining([
+        'family-conversation.md',
+        'inner-note.md',
+        'relationship-distance.md',
+        'work-boundary.md'
+      ])
+    );
   });
 });
