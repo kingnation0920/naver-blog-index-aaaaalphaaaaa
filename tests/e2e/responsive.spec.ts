@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const routes = ['/', '/topics/work', '/articles/work-boundary', '/counseling', '/404'];
+const routes = ['/', '/topics/work', '/articles/work-boundary', '/articles/family-causes', '/counseling', '/404'];
 
 test('homepage remains within required viewport widths', async ({ page }) => {
   for (const width of [320, 768, 1200]) {
@@ -36,6 +36,18 @@ test('core pages fit the viewport and expose visible keyboard navigation', async
     await expect(skipLink).toBeFocused();
     await expect(skipLink).toBeVisible();
   }
+});
+
+test('article source URLs wrap at a 390px viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto('/articles/family-causes');
+
+  const { scrollWidth, viewportWidth } = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth
+  }));
+
+  expect(scrollWidth).toBeLessThanOrEqual(viewportWidth);
 });
 
 test('mobile menu opens shared navigation', async ({ page }, testInfo) => {
