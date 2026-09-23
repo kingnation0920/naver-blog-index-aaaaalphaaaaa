@@ -16,9 +16,47 @@ const topicCopy: Record<Exclude<Category, 'notes'>, { title: string; description
   family: { title: '가족과 성장', description: '오래된 역할과 대화 안에서 새로운 선택을 찾습니다.' }
 };
 const topics = Object.entries(topicCopy) as [Exclude<Category, 'notes'>, { title: string; description: string }][];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://aiproductplanner.kr/#website',
+      url: 'https://aiproductplanner.kr/',
+      name: site.name,
+      alternateName: '마음의 장면들 - 감정 아카이브',
+      description: site.description,
+      inLanguage: 'ko-KR',
+      publisher: {
+        '@type': 'Organization',
+        name: '사람과성장 코칭심리상담센터',
+        url: site.officialUrl
+      }
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://aiproductplanner.kr/#organization',
+      name: site.name,
+      url: 'https://aiproductplanner.kr/',
+      parentOrganization: {
+        '@type': 'Organization',
+        name: '사람과성장 코칭심리상담센터',
+        url: site.officialUrl
+      }
+    },
+    {
+      '@type': 'Person',
+      name: '김민경',
+      jobTitle: '사람과성장 코칭심리상담센터 센터장 / 보건복지부 임상심리사 1급',
+      description: '보건복지부 임상심리사 1급, 명지대학교 대학원 코칭심리학 박사 과정, 명지대학교 대학원 상담심리 석사 졸업, 사람과성장 코칭심리상담센터 센터장.',
+      url: 'https://mindgrove.kr'
+    }
+  ]
+};
 ---
 
-<BaseLayout title={site.name} description={site.description} pathname="/">
+<BaseLayout title={site.name} description={site.description} pathname="/" jsonLd={jsonLd}>
   <Header />
   <main id="main-content">
     <section class="hero container">

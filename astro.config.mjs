@@ -4,5 +4,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: process.env.PUBLIC_SITE_URL ?? 'https://aiproductplanner.kr',
   output: 'static',
-  integrations: [sitemap()]
+  trailingSlash: 'never',
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = new Date('2026-09-17').toISOString();
+        return item;
+      }
+    })
+  ]
 });

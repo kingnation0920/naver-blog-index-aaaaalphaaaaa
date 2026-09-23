@@ -1,10 +1,14 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "astro",
   "redirects": [
     {
-      "source": "/sitemap.xml",
-      "destination": "/sitemap-index.xml",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.aiproductplanner.kr"
+        }
+      ],
+      "destination": "https://aiproductplanner.kr/:path*",
       "permanent": true
     }
   ]
