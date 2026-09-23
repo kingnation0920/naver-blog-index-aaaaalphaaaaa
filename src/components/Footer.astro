@@ -13,6 +13,7 @@ import { site } from '@/data/site';
       <p class="notice">{site.notice}</p>
     </div>
     <div class="contact-links" aria-label="연락 채널">
+      <a href={site.officialUrl} target="_blank" rel="noreferrer">사람과성장 본원 ↗</a>
       <a href={`tel:${site.phone.replaceAll('-', '')}`}>{site.phone}</a>
       <a href={site.kakaoUrl} target="_blank" rel="noreferrer">카카오톡 상담 ↗</a>
       <a href={site.bookingUrl} target="_blank" rel="noreferrer">상담 예약 ↗</a>
