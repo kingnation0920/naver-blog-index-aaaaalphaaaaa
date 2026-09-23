@@ -7,10 +7,11 @@ interface Props {
   description: string;
   pathname: string;
   image?: string;
+  type?: string;
   jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, pathname, image = '/og-default.svg', jsonLd } = Astro.props;
+const { title, description, pathname, image = '/articles/3/1.jpg', type = 'website', jsonLd } = Astro.props;
 const canonical = new URL(pathname, site.url).href;
 const pageTitle = title === site.name ? site.name : `${title} | ${site.name}`;
 const socialImage = new URL(image, site.url).href;
@@ -24,10 +25,15 @@ const socialImage = new URL(image, site.url).href;
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta property="og:type" content={type} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>

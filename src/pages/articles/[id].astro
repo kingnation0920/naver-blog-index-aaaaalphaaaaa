@@ -22,15 +22,48 @@ const related = entry.data.relatedSlugs
   .map((id) => allArticles.find((article) => article.id === id))
   .filter((article): article is CollectionEntry<'articles'> => Boolean(article));
 const pathname = `/articles/${entry.id}`;
+const imageUrl = new URL(`/articles/${entry.id}/1.jpg`, site.url).href;
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: entry.data.title,
-  description: entry.data.summary,
-  datePublished: entry.data.publishedAt.toISOString(),
-  author: { '@type': 'Organization', name: site.operator },
-  publisher: { '@type': 'Organization', name: site.name },
-  mainEntityOfPage: new URL(pathname, site.url).href
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: entry.data.title,
+      description: entry.data.summary,
+      datePublished: entry.data.publishedAt.toISOString(),
+      dateModified: entry.data.publishedAt.toISOString(),
+      image: imageUrl,
+      author: { '@type': 'Organization', name: site.operator },
+      publisher: {
+        '@type': 'Organization',
+        name: site.name,
+        url: site.url
+      },
+      mainEntityOfPage: new URL(pathname, site.url).href
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: '성과 강박과 인정 중독에서 벗어나려면 어떻게 해야 하나요?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '자신의 가치를 외부의 실적이나 타인의 인정과 동일시하는 자동적 사고를 인지하고, 일과 나 사이에 건강한 심리적 경계선을 긋는 훈련이 필요합니다.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: '비즈니스 리더 및 직장인 심리상담/코칭은 어떻게 진행되나요?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '1급 임상심리 전문가와 비즈니스 코치가 협업하여 1:1 맞춤형 세션을 진행하며, 심리검사를 통한 기질 진단과 실전 멘탈 관리 전략을 입체적으로 제공합니다.'
+          }
+        }
+      ]
+    }
+  ]
 };
 ---
 
@@ -38,7 +71,8 @@ const jsonLd = {
   title={entry.data.seoTitle}
   description={entry.data.seoDescription}
   pathname={pathname}
-  image={entry.data.shareImage}
+  image={`/articles/${entry.id}/1.jpg`}
+  type="article"
   jsonLd={jsonLd}
 >
   <Header />
@@ -50,9 +84,26 @@ const jsonLd = {
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
       <small>{entry.data.readingTime} · {entry.data.publishedAt.toLocaleDateString('ko-KR')}</small>
+      <div class="direct-answer-box" style="background: #fdfbf7; border-left: 4px solid var(--accent); padding: 18px 22px; margin: 28px 0 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <p style="font-weight: 700; margin-bottom: 8px; color: var(--ink); font-size: 0.95rem;">💡 핵심 요약 (Direct Answer)</p>
+        <p style="margin: 0; color: var(--body); line-height: 1.65; font-size: 0.92rem;">{entry.data.summary}</p>
+      </div>
     </header>
 
-    <article class="prose"><Content /></article>
+    <article class="prose">
+      <Content />
+      <section class="faq-section" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line);">
+        <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 24px; color: var(--ink);">자주 묻는 질문 (FAQ)</h2>
+        <div style="margin-bottom: 24px;">
+          <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px;">Q. 성과 강박과 인정 중독에서 벗어나려면 어떻게 해야 하나요?</h3>
+          <p style="color: var(--body); font-size: 0.95rem; line-height: 1.75; margin: 0;">자신의 가치를 외부의 실적이나 타인의 인정과 동일시하는 자동적 사고를 인지하고, 일과 나 사이에 건강한 심리적 경계선을 긋는 훈련이 필요합니다.</p>
+        </div>
+        <div style="margin-bottom: 24px;">
+          <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px;">Q. 비즈니스 리더 및 직장인 심리상담/코칭은 어떻게 진행되나요?</h3>
+          <p style="color: var(--body); font-size: 0.95rem; line-height: 1.75; margin: 0;">1급 임상심리 전문가와 비즈니스 코치가 협업하여 1:1 맞춤형 세션을 진행하며, 심리검사를 통한 기질 진단과 실전 멘탈 관리 전략을 입체적으로 제공합니다.</p>
+        </div>
+      </section>
+    </article>
 
     {related.length > 0 && (
       <section class="related" aria-labelledby="related-title">
@@ -110,6 +161,16 @@ const jsonLd = {
   .prose :global(p) {
     margin-bottom: 1.8em;
     overflow-wrap: anywhere;
+  }
+
+  .prose :global(h2) {
+    margin-top: 2.2em;
+    margin-bottom: 0.8em;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+    word-break: keep-all;
   }
 
   .related {
