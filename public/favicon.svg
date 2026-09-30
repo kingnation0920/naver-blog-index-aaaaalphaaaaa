@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg-ap" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="sage-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="mint-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#6ee7b7"/>
+    </linearGradient>
+    <filter id="glow-ap" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg-ap)"/>
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="none" stroke="#334155" stroke-width="3" opacity="0.5"/>
+  <g filter="url(#glow-ap)">
+    <!-- Base Arch of Equanimity -->
+    <path d="M 180 390 C 210 370 302 370 332 390" fill="none" stroke="#475569" stroke-width="12" stroke-linecap="round"/>
+    <line x1="256" y1="180" x2="256" y2="380" stroke="url(#sage-emerald)" stroke-width="16" stroke-linecap="round"/>
+    <!-- Balance Scale Beam (Horizontal Harmony) -->
+    <line x1="120" y1="210" x2="392" y2="210" stroke="url(#sage-emerald)" stroke-width="18" stroke-linecap="round"/>
+    <!-- Left Scale / Work Disc -->
+    <line x1="150" y1="210" x2="150" y2="260" stroke="url(#mint-light)" stroke-width="8"/>
+    <path d="M 110 260 C 110 290 190 290 190 260 Z" fill="url(#sage-emerald)"/>
+    <!-- Right Scale / Life & Rest Disc -->
+    <line x1="362" y1="210" x2="362" y2="260" stroke="url(#mint-light)" stroke-width="8"/>
+    <path d="M 322 260 C 322 290 402 290 402 260 Z" fill="url(#sage-emerald)"/>
+    <!-- Zen Center Fulcrum (Mindful Presence) -->
+    <circle cx="256" cy="180" r="28" fill="url(#mint-light)"/>
+    <circle cx="256" cy="180" r="14" fill="#0f172a"/>
+  </g>
+</svg>
