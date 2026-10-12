@@ -10,6 +10,11 @@
       ],
       "destination": "https://aiproductplanner.kr/:path*",
       "permanent": true
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "permanent": true
     }
   ]
 }
