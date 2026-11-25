@@ -22,6 +22,19 @@ export default function RootLayout({ children }) {
         }}
       >
         {children}
+        <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js" />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "1fcedd2e3361650";
+if(window.wcs) {
+  wcs_do();
+}
+`,
+          }}
+        />
       </body>
     </html>
   );
