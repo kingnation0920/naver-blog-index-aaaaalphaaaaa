@@ -35,6 +35,17 @@ if(window.wcs) {
 `,
           }}
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3H58YCSBV" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-K3H58YCSBV');
+`,
+          }}
+        />
       </body>
     </html>
   );
