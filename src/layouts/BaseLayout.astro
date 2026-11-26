@@ -41,5 +41,20 @@ const socialImage = new URL(image, site.url).href;
   </head>
   <body>
     <slot />
+    <script is:inline type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+    <script is:inline type="text/javascript">
+      if (!wcs_add) var wcs_add = {};
+      wcs_add["wa"] = "1fcedd2e3361650";
+      if (window.wcs) {
+        wcs_do();
+      }
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-K3H58YCSBV"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K3H58YCSBV');
+    </script>
   </body>
 </html>
